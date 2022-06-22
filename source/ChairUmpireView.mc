@@ -75,8 +75,9 @@ class ChairUmpireView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(0, yMiddle, deviceWidth, yMiddle);
 
-        System.println(match.getMatchScore()[0]);
-        System.println(match.getMatchScore()[1]);
+        // TODO
+        // System.println(match.getMatchScore()[0]);
+        // System.println(match.getMatchScore()[1]);
 
         var crtScore = match.getGameScore();
         var player1Score = crtScore[0];

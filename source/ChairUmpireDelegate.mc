@@ -17,25 +17,22 @@ class ChairUmpireDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onBack() {
-        System.println("Back");
         relatedView.undo();
-        // WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
         return true;
     }
 
     function onSelect() {
-        System.println("Select");
+        // TODO
+        WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
         return true;
     }
 
     function onNextPage() {
-        System.println("Next");
         relatedView.score(PLAYER_1);
         return true;
     }
 
     function onPreviousPage() {
-        System.println("Prev");
         relatedView.score(PLAYER_2);
         return true;
     }
