@@ -1,15 +1,22 @@
 using Toybox.Graphics;
+using Toybox.System;
 
 module UIHelpers {
-    function drawScoreText(dc, x, y, text, padding) {
-        // var radius = 5;
-        // var dimensions = dc.getTextDimensions(text, font);
-
-        // dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_GREEN);
-        // dc.fillRoundedRectangle(x - dimensions[0] / 2 - padding, y - dimensions[1] / 2, dimensions[0] + 2 * padding, dimensions[1], radius);
+    function drawGameScoreText(dc, x, y, player, score) {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        // TODO show with FONT_NUMBER_MEDIUM - needs application score remaster
-        // dc.drawText(x, y, Graphics.FONT_NUMBER_MEDIUM, text, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-        dc.drawText(x, y, Graphics.FONT_SYSTEM_LARGE, text, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(x, y, Graphics.FONT_NUMBER_MEDIUM, score.point.toString(), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+
+        var yAdvantage = 0;
+        if (player == PLAYER_1) {
+            yAdvantage = y + Graphics.getFontHeight(Graphics.FONT_SMALL);
+        } 
+        else if (player == PLAYER_2) {
+            yAdvantage = y - Graphics.getFontHeight(Graphics.FONT_SMALL);
+        }
+
+        if (score.hasAdvantage) {
+            dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(x, yAdvantage, Graphics.FONT_SMALL, "A", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        }
     }
 }

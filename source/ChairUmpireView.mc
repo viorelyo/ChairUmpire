@@ -83,8 +83,8 @@ class ChairUmpireView extends WatchUi.View {
         var player1Score = crtScore[0];
         var player2Score = crtScore[1];
 
-        UIHelpers.drawScoreText(dc, xScore, yScore1, player1Score, 10);
-        UIHelpers.drawScoreText(dc, xScore, yScore2, player2Score, 10);
+        UIHelpers.drawGameScoreText(dc, xScore, yScore1, PLAYER_1, player1Score);
+        UIHelpers.drawGameScoreText(dc, xScore, yScore2, PLAYER_2, player2Score);
     }
 
 

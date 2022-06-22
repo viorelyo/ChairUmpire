@@ -4,6 +4,16 @@ enum Player {
     PLAYER_2 = 2
 }
 
+class GameScore {
+    public var point;
+    public var hasAdvantage;
+
+    public function initialize(_point, _hasAdvantage) {
+        point = _point;
+        hasAdvantage = _hasAdvantage;
+    }
+}
+
 class Game {
     static const AVAILABLE_POINTS = [0, 15, 30, 40];
 
@@ -26,8 +36,8 @@ class Game {
     }
 
     function getScore() {
-        var score1 = AVAILABLE_POINTS[player1ScoreIndex].toString() + (hasPlayer1Advantage ? "A" : "");
-        var score2 = AVAILABLE_POINTS[player2ScoreIndex].toString() + (hasPlayer2Advantage ? "A" : "");
+        var score1 = new GameScore(AVAILABLE_POINTS[player1ScoreIndex], hasPlayer1Advantage);
+        var score2 = new GameScore(AVAILABLE_POINTS[player2ScoreIndex], hasPlayer2Advantage);
 
         return [ score1, score2 ];
     }
