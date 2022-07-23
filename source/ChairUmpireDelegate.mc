@@ -11,7 +11,7 @@ class ChairUmpireDelegate extends WatchUi.BehaviorDelegate {
         relatedView = view;
     }
 
-    function onMenu() as Boolean {
+    function onMenu() {
         WatchUi.pushView(new Rez.Menus.MainMenu(), new ChairUmpireMenuDelegate(), WatchUi.SLIDE_UP);
         return true;
     }

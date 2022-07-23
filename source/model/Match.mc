@@ -142,6 +142,10 @@ class Match {
     private var game;
 
     function initialize() {
+        reset();
+    }
+
+    function reset() {
         history = new List();
 
         game = new Game();

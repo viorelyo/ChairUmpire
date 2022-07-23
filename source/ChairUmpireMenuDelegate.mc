@@ -15,6 +15,8 @@ class ChairUmpireMenuDelegate extends WatchUi.MenuInputDelegate {
 			WatchUi.pushView(save_confirmation, new SaveConfirmationDelegate(), WatchUi.SLIDE_IMMEDIATE);
 		}
 		else if(item == :menu_reset_game) {
+            var match = Application.getApp().getMatch();
+            match.reset();
 		}
     }
 

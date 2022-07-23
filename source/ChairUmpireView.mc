@@ -15,15 +15,10 @@ class ChairUmpireView extends WatchUi.View {
     private var yScore1;
     private var yScore2;
 
-    // Game attributes
-    private var match;
-
     function initialize() {
         View.initialize();
 
         initUI();
-
-        match = new Match();
     }
 
     private function initUI() {
@@ -71,13 +66,11 @@ class ChairUmpireView extends WatchUi.View {
 
         
     function drawGameScore(dc) as Void {
+        var match = Application.getApp().getMatch();
+
         // TODO refactor the line
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(0, yMiddle, deviceWidth, yMiddle);
-
-        // TODO
-        // System.println(match.getMatchScore()[0]);
-        // System.println(match.getMatchScore()[1]);
 
         var crtScore = match.getGameScore();
         var player1Score = crtScore[0];
@@ -90,12 +83,16 @@ class ChairUmpireView extends WatchUi.View {
 
     // Game methods
     function score(player) as Void {
+        var match = Application.getApp().getMatch();
+
         match.score(player);
 
         WatchUi.requestUpdate();
     }
 
     function undo() as Void {
+        var match = Application.getApp().getMatch();
+
         match.undo();
 
         WatchUi.requestUpdate();

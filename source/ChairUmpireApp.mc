@@ -4,8 +4,16 @@ import Toybox.WatchUi;
 
 class ChairUmpireApp extends Application.AppBase {
 
+    private var match;
+
     function initialize() {
         AppBase.initialize();
+
+        match = new Match();
+    }
+
+    function getMatch() {
+        return match;
     }
 
     // onStart() is called on application start up
