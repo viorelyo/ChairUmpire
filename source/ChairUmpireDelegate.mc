@@ -23,7 +23,7 @@ class ChairUmpireDelegate extends WatchUi.BehaviorDelegate {
 
     function onSelect() {
         // TODO
-        WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+        // WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
         return true;
     }
 

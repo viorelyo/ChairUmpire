@@ -1,4 +1,4 @@
 <menu id="MainMenu">
-    <menu-item id="item_1" label="@Strings.menu_label_1" />
-    <menu-item id="item_2" label="@Strings.menu_label_2" />
+	<menu-item id="menu_reset_game" label="@Strings.menu_reset_game"></menu-item>
+	<menu-item id="menu_stop_game" label="@Strings.menu_stop_game"></menu-item>
 </menu>

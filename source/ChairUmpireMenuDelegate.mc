@@ -9,11 +9,13 @@ class ChairUmpireMenuDelegate extends WatchUi.MenuInputDelegate {
     }
 
     function onMenuItem(item as Symbol) as Void {
-        if (item == :item_1) {
-            System.println("item 1");
-        } else if (item == :item_2) {
-            System.println("item 2");
-        }
+        if(item == :menu_stop_game) {
+			WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+			var save_confirmation = new WatchUi.Confirmation(WatchUi.loadResource(Rez.Strings.save_confirmation));
+			WatchUi.pushView(save_confirmation, new SaveConfirmationDelegate(), WatchUi.SLIDE_IMMEDIATE);
+		}
+		else if(item == :menu_reset_game) {
+		}
     }
 
 }
