@@ -6,13 +6,26 @@ class ChairUmpireApp extends Application.AppBase {
 
     private var match;
 
+    private const NR_PAGES as Number = 2;
+    private var pageIndicator;
+
     function initialize() {
         AppBase.initialize();
+
+        pageIndicator = new PageIndicator(NR_PAGES, Graphics.COLOR_LT_GRAY, Graphics.COLOR_DK_GRAY, ALIGN_BOTTOM_CENTER, 3);
 
         match = new Match();
     }
 
-    function getMatch() {
+    function getPageIndicator() as PageIndicator {
+        return pageIndicator;
+    }
+
+    function getPagesNr() as Number {
+        return NR_PAGES;
+    }
+
+    function getMatch() as Match {
         return match;
     }
 
@@ -26,7 +39,7 @@ class ChairUmpireApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as Array<Views or InputDelegates>? {
-        var view = new ChairUmpireView();
+        var view = new GameScoreView();
         return [ view, new ChairUmpireDelegate(view) ] as Array<Views or InputDelegates>;
     }
 

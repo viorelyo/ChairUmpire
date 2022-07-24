@@ -1,7 +1,9 @@
 import Toybox.Graphics;
 import Toybox.WatchUi;
 
-class ChairUmpireView extends WatchUi.View {
+class SetScoreView extends WatchUi.View {
+
+    private const PAGE_INDEX as Number = 1;
 
     // UI attributes
     private var deviceHeight;
@@ -39,28 +41,19 @@ class ChairUmpireView extends WatchUi.View {
         yScore2 = Utils.mean(yMiddle, yTop);
     }
 
-    // Load your resources here
-    // function onLayout(dc as Dc) as Void {
-    //     setLayout(Rez.Layouts.MainLayout(dc));
-    // }
-
-    // Called when this View is brought to the foreground. Restore
-    // the state of this View and prepare it to be shown. This includes
-    // loading resources into memory.
     function onShow() as Void {
     }
 
-    // Update the view
     function onUpdate(dc as Dc) as Void {
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
 
+        var pageIndicator = Application.getApp().getPageIndicator();
+        pageIndicator.draw(dc, PAGE_INDEX);
+
         drawGameScore(dc);
     }
 
-    // Called when this View is removed from the screen. Save the
-    // state of this View here. This includes freeing resources from
-    // memory.
     function onHide() as Void {
     }
 
@@ -72,29 +65,24 @@ class ChairUmpireView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(0, yMiddle, deviceWidth, yMiddle);
 
-        var crtScore = match.getGameScore();
+        var crtScore = match.getMatchScore();
         var player1Score = crtScore[0];
         var player2Score = crtScore[1];
 
-        UIHelpers.drawGameScoreText(dc, xScore, yScore1, PLAYER_1, player1Score);
-        UIHelpers.drawGameScoreText(dc, xScore, yScore2, PLAYER_2, player2Score);
+        UIHelpers.drawSetScoreText(dc, xScore, yScore1, PLAYER_1, player1Score);
+        UIHelpers.drawSetScoreText(dc, xScore, yScore2, PLAYER_2, player2Score);
     }
 
-
-    // Game methods
-    function score(player) as Void {
-        var match = Application.getApp().getMatch();
-
-        match.score(player);
-
-        WatchUi.requestUpdate();
+    // Delegate callbacks
+    function onBack() as Boolean {
+        return true;
     }
 
-    function undo() as Void {
-        var match = Application.getApp().getMatch();
+    function onNextPage() as Boolean {
+        return true;
+    }
 
-        match.undo();
-
-        WatchUi.requestUpdate();
+    function onPreviousPage() as Boolean {
+        return true;
     }
 }

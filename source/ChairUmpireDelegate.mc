@@ -3,12 +3,13 @@ import Toybox.WatchUi;
 
 class ChairUmpireDelegate extends WatchUi.BehaviorDelegate {
 
-    private var relatedView;
+    private var pageIndex as Number = 1;
+    private var currentView;
 
     function initialize(view) {
         BehaviorDelegate.initialize();
 
-        relatedView = view;
+        currentView = view;
     }
 
     function onMenu() {
@@ -16,24 +17,47 @@ class ChairUmpireDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    function onBack() {
-        relatedView.undo();
-        return true;
-    }
-
     function onSelect() {
-        // TODO
+        switchPage();
         // WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
         return true;
     }
-
-    function onNextPage() {
-        relatedView.score(PLAYER_1);
-        return true;
+    
+    function onBack() as Boolean {
+        return currentView.onBack();
     }
 
-    function onPreviousPage() {
-        relatedView.score(PLAYER_2);
-        return true;
+
+    function onNextPage() as Boolean {
+        return currentView.onNextPage();
+    }
+
+    function onPreviousPage() as Boolean {
+        return currentView.onPreviousPage();
+    }
+
+    private function switchPage() as Void {
+        var nrOfPages = Application.getApp().getPagesNr();
+
+        if (pageIndex == nrOfPages) {
+            pageIndex = 1;
+        } else {
+            pageIndex++;
+        }
+
+        switchView();
+    }
+
+    private function switchView() as Void {
+        if (pageIndex == 1) {
+            currentView = new GameScoreView();
+        } else {
+            currentView = new SetScoreView();
+        }
+        // } else {
+        //     newView = new UserProfileSectionThreeView();
+        // }
+
+        WatchUi.switchToView(currentView, self, WatchUi.SLIDE_LEFT);
     }
 }

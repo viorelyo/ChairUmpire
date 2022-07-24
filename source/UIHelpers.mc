@@ -19,4 +19,9 @@ module UIHelpers {
             dc.drawText(x, yAdvantage, Graphics.FONT_SMALL, "A", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
+
+    function drawSetScoreText(dc, x, y, player, score) {
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y, Graphics.FONT_NUMBER_MEDIUM, score.toString(), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+    }
 }
