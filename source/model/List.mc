@@ -1,12 +1,11 @@
 class List {
-	const INITIAL_SIZE = 10;
+	private const INITIAL_SIZE = 10;
 
 	private var elements;
 	private var length;
 
 	function initialize() {
-		elements = new [INITIAL_SIZE];
-		length = 0;
+		clear();
 	}
 
 	function size() {
@@ -24,25 +23,19 @@ class List {
 		return elements[index];
 	}
 
-	function indexOf(element) {
-		return elements.indexOf(element);
+	// function indexOf(element) {
+	// 	return elements.indexOf(element);
+	// }
+
+	// function remove(element) {
+	// 	length--;
+	// 	return elements.remove(element);
+	// }
+
+	function clear() {
+		elements = new [INITIAL_SIZE];
+		length = 0;
 	}
-
-	function remove(element) {
-		length--;
-		return elements.remove(element);
-	}
-
-    function clear() {
-        initialize();
-
-
-        // while (length > 0) {
-        //     pop();
-        // }
-
-        // length = 0;
-    }
 
 	function push(element) {
 		if(length + 1 > elements.size()) {
@@ -53,6 +46,10 @@ class List {
 	}
 
 	function pop() {
+		if(length == 0) {
+			throw new Toybox.Lang.ValueOutOfBoundsException("Empty list");
+		}
+
 		length--;
 		return elements[length];
 	}

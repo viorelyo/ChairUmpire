@@ -14,32 +14,57 @@ class GameScore {
     }
 }
 
-class Game {
-    static const AVAILABLE_POINTS = [0, 15, 30, 40];
+class InternalGameScore {
+    var player1ScoreIndex;
+    var hasPlayer1Advantage;
 
-    private var player1ScoreIndex;
-    private var hasPlayer1Advantage;
-
-    private var player2ScoreIndex;
-    private var hasPlayer2Advantage;
+    var player2ScoreIndex;
+    var hasPlayer2Advantage;
 
     function initialize() {
-        reset();
-    }
-
-    function reset() {
         player1ScoreIndex = 0;
         hasPlayer1Advantage = false;
 
         player2ScoreIndex = 0;
         hasPlayer2Advantage = false;
     }
+}
+
+class Game {
+    static const AVAILABLE_POINTS = [0, 15, 30, 40];
+
+    private var score as InternalGameScore;
+
+    function initialize() {
+        reset();
+    }
+
+    function reset() {
+        score = new InternalGameScore();
+    }
 
     function getScore() {
-        var score1 = new GameScore(AVAILABLE_POINTS[player1ScoreIndex], hasPlayer1Advantage);
-        var score2 = new GameScore(AVAILABLE_POINTS[player2ScoreIndex], hasPlayer2Advantage);
+        var score1 = new GameScore(AVAILABLE_POINTS[score.player1ScoreIndex], score.hasPlayer1Advantage);
+        var score2 = new GameScore(AVAILABLE_POINTS[score.player2ScoreIndex], score.hasPlayer2Advantage);
 
         return [ score1, score2 ];
+    }
+
+    function getScoreSnapshot() {
+        var copy = new InternalGameScore();
+        copy.player1ScoreIndex = score.player1ScoreIndex;
+        copy.hasPlayer1Advantage = score.hasPlayer1Advantage;
+        copy.player2ScoreIndex = score.player2ScoreIndex;
+        copy.hasPlayer2Advantage = score.hasPlayer2Advantage;
+
+        return copy;
+    }
+
+    function setScoreFromSnapshot(scoreSnapshot as InternalGameScore) {
+        score.player1ScoreIndex = scoreSnapshot.player1ScoreIndex;
+        score.hasPlayer1Advantage = scoreSnapshot.hasPlayer1Advantage;
+        score.player2ScoreIndex = scoreSnapshot.player2ScoreIndex;
+        score.hasPlayer2Advantage = scoreSnapshot.hasPlayer2Advantage;
     }
 
     function isEnded() {
@@ -47,89 +72,64 @@ class Game {
             return false;
         }
 
-        return (player1ScoreIndex > 3) || (player2ScoreIndex > 3);
+        return (score.player1ScoreIndex > 3) || (score.player2ScoreIndex > 3);
     }
 
     function isNew() {
-        return (player1ScoreIndex == 0) && (player2ScoreIndex == 0);
+        return (score.player1ScoreIndex == 0) && (score.player2ScoreIndex == 0);
     }
 
     function isDeuce() {
-        return (player1ScoreIndex == 3) && (player2ScoreIndex == 3);
+        return (score.player1ScoreIndex == 3) && (score.player2ScoreIndex == 3);
     }
 
-    function score(player) {
+    function markScore(player) {
         if (player == PLAYER_1) {
             if (isDeuce()) {
-                if (hasPlayer1Advantage) {
-                    player1ScoreIndex++;
+                if (score.hasPlayer1Advantage) {
+                    score.player1ScoreIndex++;
                 }
-                else if (hasPlayer2Advantage) {
-                    hasPlayer2Advantage = false;
+                else if (score.hasPlayer2Advantage) {
+                    score.hasPlayer2Advantage = false;
                 }
                 else {
-                    hasPlayer1Advantage = true;
+                    score.hasPlayer1Advantage = true;
                 }
 
                 return;
             }
 
-            player1ScoreIndex++;
+            score.player1ScoreIndex++;
         }
         else if (player == PLAYER_2) {
             if (isDeuce()) {
-                if (hasPlayer2Advantage) {
-                    player2ScoreIndex++;
+                if (score.hasPlayer2Advantage) {
+                    score.player2ScoreIndex++;
                 }
-                else if (hasPlayer1Advantage) {
-                    hasPlayer1Advantage = false;
+                else if (score.hasPlayer1Advantage) {
+                    score.hasPlayer1Advantage = false;
                 }
                 else {
-                    hasPlayer2Advantage = true;
+                    score.hasPlayer2Advantage = true;
                 }
                 return;
             }
 
-            player2ScoreIndex++;
+            score.player2ScoreIndex++;
         }
     }
+}
 
-    function undo(player) {
-        // TODO handle deuce
-        if (player == PLAYER_1) {
-            if (isDeuce()) {
-                if (hasPlayer1Advantage) {
-                    hasPlayer1Advantage = false;
-                }
-                else if (hasPlayer2Advantage) {
-                    hasPlayer2Advantage = false;
-                }
-                else {
-                    player1ScoreIndex--;
-                }
+class InternalMatchScoreSnapshot {
+    var player1Score as Number;
+    var player2Score as Number;
 
-                return;
-            }
+    var gameScore as InternalGameScore;
 
-            player1ScoreIndex--;
-        }
-        else if (player == PLAYER_2) {
-            if (isDeuce()) {
-                if (hasPlayer2Advantage) {
-                    hasPlayer2Advantage = false;
-                }
-                else if (hasPlayer1Advantage) {
-                    hasPlayer1Advantage = false;
-                }
-                else {
-                    player2ScoreIndex--;
-                }
-
-                return;
-            }
-
-            player2ScoreIndex--;
-        }
+    function initialize(_player1Score, _player2Score, _gameScore) {
+        player1Score = _player1Score;
+        player2Score = _player2Score;
+        gameScore = _gameScore;
     }
 }
 
@@ -163,15 +163,15 @@ class Match {
     }
 
     function score(player) {
-        history.push(player);    
-        game.score(player);
+        recordHistory();
+        
+        game.markScore(player);
 
         if (!game.isEnded()) {
             return;
         }
 
         game.reset();
-        history.clear();
 
         if (player == PLAYER_1) {
             player1Score++;
@@ -181,19 +181,26 @@ class Match {
         }
     }
 
+    function recordHistory() {
+        // Limited history size
+        if (history.size() == 40) {
+            history.clear();
+        }
+
+        var snapshot = new InternalMatchScoreSnapshot(player1Score, player2Score, game.getScoreSnapshot());
+        history.push(snapshot);
+    }
+
     function undo() {
         if (history.isEmpty()) {
+            history.clear();
             return;
         }
 
-        var prevActionPlayer = history.pop();
+        var prevSnapshot as InternalMatchScoreSnapshot = history.pop();
 
-        if (game.isNew()) {
-            // TODO
-            history.clear();
-        }
-        else {
-            game.undo(prevActionPlayer);
-        }
+        player1Score = prevSnapshot.player1Score;
+        player2Score = prevSnapshot.player2Score;
+        game.setScoreFromSnapshot(prevSnapshot.gameScore);
     }
 }
