@@ -58,6 +58,6 @@ class ChairUmpireDelegate extends WatchUi.BehaviorDelegate {
         //     newView = new UserProfileSectionThreeView();
         // }
 
-        WatchUi.switchToView(currentView, self, WatchUi.SLIDE_LEFT);
+        WatchUi.switchToView(currentView, self, WatchUi.SLIDE_IMMEDIATE);
     }
 }
