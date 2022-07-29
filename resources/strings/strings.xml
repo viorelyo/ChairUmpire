@@ -5,4 +5,9 @@
 	<string id="menu_stop_game">Stop</string>
 
     <string id="save_confirmation">Save activity</string>
+
+    <string id="fit_activity_name">Tennis Match</string>
+    <string id="fit_score_unit_label">points</string>
+    <string id="fit_score_player_1_label">Your score</string>
+	<string id="fit_score_player_2_label">Opponent score</string>
 </strings>

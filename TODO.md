@@ -1,2 +1,6 @@
-- [ ] Improve undo mechanism (limited undos)
 - [ ] HR gauge view (https://forums.garmin.com/developer/connect-iq/f/discussion/270150/advice-on-consistent-device-layout-design)
+- [ ] Time view + activityTime
+- [ ] Improve undo mechanism (limited undos)
+- [ ] Reduce System.getDeviceSettings calls
+- [ ] refactor setscoreview and gamescoreview - for inheriting from abstract class
+- [ ] Add Stop/Resume options in menu

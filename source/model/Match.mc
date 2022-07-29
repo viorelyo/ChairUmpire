@@ -134,6 +134,9 @@ class InternalMatchScoreSnapshot {
 }
 
 class Match {
+
+    private var isStarted;
+
     private var player1Score;
     private var player2Score;
 
@@ -141,17 +144,31 @@ class Match {
 
     private var game;
 
+    private var matchActivity;
+
     function initialize() {
+        isStarted = false;
+
         reset();
     }
 
     function reset() {
+        if (isStarted)
+        {
+            matchActivity.stop();
+            matchActivity.discard();
+        }
+
+        matchActivity = new MatchActivity();
+
         history = new List();
 
         game = new Game();
 
         player1Score = 0;
         player2Score = 0;
+
+        isStarted = true;
     }
 
     function getGameScore() {
@@ -182,7 +199,7 @@ class Match {
     }
 
     function recordHistory() {
-        // Limited history size
+        // TODO Limited history size
         if (history.size() == 40) {
             history.clear();
         }
@@ -202,5 +219,16 @@ class Match {
         player1Score = prevSnapshot.player1Score;
         player2Score = prevSnapshot.player2Score;
         game.setScoreFromSnapshot(prevSnapshot.gameScore);
+    }
+
+    function saveActivity() {
+        matchActivity.setScore(player1Score, player2Score);
+        matchActivity.stop();
+        matchActivity.save();
+    }
+
+    function discardActivity() {
+        matchActivity.stop();
+        matchActivity.discard();
     }
 }
