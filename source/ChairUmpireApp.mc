@@ -6,7 +6,7 @@ class ChairUmpireApp extends Application.AppBase {
 
     private var match;
 
-    private const NR_PAGES as Number = 2;
+    private const NR_PAGES as Number = 3;
     private var pageIndicator;
 
     function initialize() {

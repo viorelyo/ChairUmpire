@@ -230,4 +230,8 @@ class Match {
         matchActivity.stop();
         matchActivity.discard();
     }
+
+    function getActivityDuration() {
+        return matchActivity.getDuration();
+    }
 }

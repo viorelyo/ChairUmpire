@@ -1,5 +1,6 @@
 using Toybox.Activity;
 using Toybox.WatchUi;
+using Toybox.Time;
 
 class MatchActivity {
     const TOTAL_SCORE_PLAYER_1_FIELD_ID = 0;
@@ -32,4 +33,10 @@ class MatchActivity {
         sessionFieldScorePlayer1.setData(player1Score);
         sessionFieldScorePlayer2.setData(player2Score);
     }
+
+    function getDuration() {
+		var time = Activity.getActivityInfo().elapsedTime;
+		var seconds = time != null ? time / 1000 : 0;
+		return new Time.Duration(seconds);
+	}
 }

@@ -19,7 +19,6 @@ class ChairUmpireDelegate extends WatchUi.BehaviorDelegate {
 
     function onSelect() {
         switchPage();
-        // WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
         return true;
     }
     
@@ -51,12 +50,11 @@ class ChairUmpireDelegate extends WatchUi.BehaviorDelegate {
     private function switchView() as Void {
         if (pageIndex == 1) {
             currentView = new GameScoreView();
-        } else {
+        } else if (pageIndex == 2) {
             currentView = new SetScoreView();
+        } else {
+            currentView = new TimeView();
         }
-        // } else {
-        //     newView = new UserProfileSectionThreeView();
-        // }
 
         WatchUi.switchToView(currentView, self, WatchUi.SLIDE_IMMEDIATE);
     }
