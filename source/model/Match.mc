@@ -161,7 +161,7 @@ class Match {
 
         matchActivity = new MatchActivity();
 
-        history = new List();
+        history = new DoublyLinkedList();
 
         game = new Game();
 
@@ -199,22 +199,21 @@ class Match {
     }
 
     function recordHistory() {
-        // TODO Limited history size
-        if (history.size() == 40) {
-            history.clear();
+        // Limited history size
+        if (history.getSize() == 10) {
+            history.popFront();
         }
 
         var snapshot = new InternalMatchScoreSnapshot(player1Score, player2Score, game.getScoreSnapshot());
-        history.push(snapshot);
+        history.pushBack(snapshot);
     }
 
     function undo() {
-        if (history.isEmpty()) {
-            history.clear();
+        if (history.getSize() == 0) {
             return;
         }
 
-        var prevSnapshot as InternalMatchScoreSnapshot = history.pop();
+        var prevSnapshot as InternalMatchScoreSnapshot = history.popBack();
 
         player1Score = prevSnapshot.player1Score;
         player2Score = prevSnapshot.player2Score;
