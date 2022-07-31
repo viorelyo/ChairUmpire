@@ -4,3 +4,4 @@
 - [ ] HR gauge view (https://forums.garmin.com/developer/connect-iq/f/discussion/270150/advice-on-consistent-device-layout-design)
 - [ ] refactor setscoreview and gamescoreview - for inheriting from abstract class
 - [ ] Add Stop/Resume options in menu (?)
+- [ ] Profile + monitor CPU / Battery activity + optimize (use static const)

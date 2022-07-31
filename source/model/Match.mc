@@ -147,28 +147,18 @@ class Match {
     private var matchActivity;
 
     function initialize() {
-        isStarted = false;
+        matchActivity = new MatchActivity();
 
         reset();
     }
 
     function reset() {
-        if (isStarted)
-        {
-            matchActivity.stop();
-            matchActivity.discard();
-        }
-
-        matchActivity = new MatchActivity();
-
         history = new DoublyLinkedList();
 
         game = new Game();
 
         player1Score = 0;
         player2Score = 0;
-
-        isStarted = true;
     }
 
     function getGameScore() {
@@ -222,12 +212,10 @@ class Match {
 
     function saveActivity() {
         matchActivity.setScore(player1Score, player2Score);
-        matchActivity.stop();
         matchActivity.save();
     }
 
     function discardActivity() {
-        matchActivity.stop();
         matchActivity.discard();
     }
 
