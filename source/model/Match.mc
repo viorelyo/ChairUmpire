@@ -210,8 +210,12 @@ class Match {
         game.setScoreFromSnapshot(prevSnapshot.gameScore);
     }
 
-    function saveActivity() {
+    function stop() {
         matchActivity.setScore(player1Score, player2Score);
+        matchActivity.stop();
+    }
+
+    function saveActivity() {
         matchActivity.save();
     }
 

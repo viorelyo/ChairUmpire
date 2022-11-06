@@ -5,3 +5,5 @@
 - [ ] refactor setscoreview and gamescoreview - for inheriting from abstract class
 - [ ] Add Stop/Resume options in menu (?)
 - [ ] Profile + monitor CPU / Battery activity + optimize (use static const)
+- [ ] Avoid circular references (see DoublyLinkedList (match.history))
+- [ ] Make sure the GPS is not used during activity record
