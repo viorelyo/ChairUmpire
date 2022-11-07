@@ -7,3 +7,4 @@
 - [ ] Profile + monitor CPU / Battery activity + optimize (use static const)
 - [ ] Avoid circular references (see DoublyLinkedList (match.history))
 - [ ] Make sure the GPS is not used during activity record
+- [ ] Show time also in US format

@@ -1,1 +1,16 @@
 project.manifest = manifest.xml
+
+fenix5s.resourcePath = resources;icons/36x36
+fr55.resourcePath = resources;icons/35x35
+venu.resourcePath = resources;icons/60x60
+venud.resourcePath = resources;icons/60x60
+venusq.resourcePath = resources;icons/36x36
+venusqm.resourcePath = resources;icons/36x36
+venu2.resourcePath = resources;icons/70x70
+venu2s.resourcePath = resources;icons/61x61
+vivoactive3.resourcePath = resources;icons/40x33
+vivoactive3d.resourcePath = resources;icons/40x33
+vivoactive3m.resourcePath = resources;icons/40x33
+vivoactive3mlte.resourcePath = resources;icons/40x33
+vivoactive4.resourcePath = resources;icons/35x35
+vivoactive4s.resourcePath = resources;icons/30x30
