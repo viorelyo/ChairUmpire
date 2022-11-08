@@ -23,8 +23,8 @@ Easy access to the match score to focus only on the game and free your mind.
 
 ## Instructions
 - `Start` button - on main screen - start the activity
-- `Down` button / `Swipe Down` (`Prev` action) - add points to you
-- `Up` button / `Swipe Up` (`Next` action) - add points to oppenent
+- `Down` button / `Swipe Up` - add points to you
+- `Up` button / `Swipe Down` - add points to oppenent
 - `Start` button / `Tap` - activity screen - navigate through views
 - `Back` button - activity screen - undo Game Score (up to 10 undo actions)
 - `Menu` trigger (device specific) - Reset score / Stop activity

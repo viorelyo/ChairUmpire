@@ -25,15 +25,32 @@ class InitialDelegate extends WatchUi.BehaviorDelegate {
         BehaviorDelegate.initialize();
     }
 
-    function onMenu() as Boolean {
-        return true;
-    }
-
-    function onSelect() {
+    private function startMatch() {
         Application.getApp().createMatch();
 
         var view = new GameScoreView();
         WatchUi.pushView(view, new ChairUmpireDelegate(view), WatchUi.SLIDE_IMMEDIATE);
+    }
+
+    function onMenu() as Boolean {
+        return true;
+    }
+
+    function onSelect() as Boolean {
+        startMatch();
+        return true;
+    }
+
+    /*
+    * Handling separately the KEY_ENTER (Start/Stop button on some devices, e.g. venu)
+    */
+    function onKey(evt as KeyEvent) as Boolean {
+        var key = evt.getKey();
+
+        if (key == KEY_ENTER) {
+            startMatch();
+        }
+
         return true;
     }
 }
