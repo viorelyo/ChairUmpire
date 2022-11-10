@@ -49,8 +49,10 @@ class InitialDelegate extends WatchUi.BehaviorDelegate {
 
         if (key == KEY_ENTER) {
             startMatch();
+            return true;
         }
 
-        return true;
+        // ignoring other KeyEvents
+        return false;
     }
 }
